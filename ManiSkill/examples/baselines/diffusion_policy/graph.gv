@@ -1,0 +1,2595 @@
+// Computational graph for the feedforward sweep
+digraph ConditionalUnet1D {
+	graph [label=<<B>ConditionalUnet1D</B><br align='left'/>223 tensors total (1.1 MB)<br align='left'/>6133768 params total (23.4 MB)<br align='left'/>> labeljust=left labelloc=t ordering=out rankdir=BT]
+	node [ordering=out]
+	input_1 [label=<<b>input_1</b><br/>2x16x8 (1.1 KB)<br/>@input.sample> color=black fillcolor="#98FB98" fontcolor=black ordering=out shape=oval style="filled,solid"]
+	input_1 -> moveaxis_1_1 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	input_2 [label=<<b>input_2</b><br/>x2 (128 B)<br/>@input.timestep> color=black fillcolor="#98FB98" fontcolor=black ordering=out shape=oval style="filled,solid"]
+	input_2 -> expand_1_2 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	input_3 [label=<<b>input_3</b><br/>2x570 (4.6 KB)<br/>@input.global_cond> color=black fillcolor="#98FB98" fontcolor=black ordering=out shape=oval style="filled,solid"]
+	input_3 -> cat_2_15 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	moveaxis_1_1 [label=<<b>moveaxis_1_1</b><br/>2x8x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	moveaxis_1_1 -> conv1d_1_16 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	moveaxis_1_1 -> conv1d_3_30 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	expand_1_2 [label=<<b>expand_1_2</b><br/>x2 (128 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	expand_1_2 -> getitem_1_6 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	arange_1_3 [label=<<b>arange_1_3</b><br/>x32 (368 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	mul_1_4 [label=<<b>mul_1_4</b><br/>x32 (240 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	exp_1_5 [label=<<b>exp_1_5</b><br/>x32 (240 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	getitem_1_6 [label=<<b>getitem_1_6</b><br/>2x1 (144 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_2_7 [label=<<b>getitem_2_7</b><br/>1x32 (256 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	mul_2_8 [label=<<b>mul_2_8</b><br/>2x32 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	sin_1_9 [label=<<b>sin_1_9</b><br/>2x32 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	cos_1_10 [label=<<b>cos_1_10</b><br/>2x32 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	cat_1_11 [label=<<b>cat_1_11</b><br/>2x64 (640 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_1_12 [label=<<b>linear_1_12</b><br/>2x256 (2.1 KB)<br/>params: 256x64, x256<br/>@diffusion_step_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_1_13 [label=<<b>mish_1_13</b><br/>2x256 (2.1 KB)<br/>@diffusion_step_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_2_14 [label=<<b>linear_2_14</b><br/>2x64 (640 B)<br/>params: 64x256, x64<br/>@diffusion_step_encoder.3> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_2_14 -> cat_2_15 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_2_15 [label=<<b>cat_2_15</b><br/>2x634 (5.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	cat_2_15 -> mish_3_19 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_2_15 -> mish_6_35 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_2_15 -> mish_9_52 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_2_15 -> mish_12_68 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_2_15 -> mish_15_85 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_2_15 -> mish_18_101 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_2_15 -> mish_21_118 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_2_15 -> mish_24_134 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_2_15 -> mish_27_151 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_2_15 -> mish_30_167 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_2_15 -> mish_33_185 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_2_15 -> mish_36_201 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	conv1d_1_16 [label=<<b>conv1d_1_16</b><br/>2x64x16 (8.1 KB)<br/>params: 64x8x5, x64<br/>@down_modules.0.0.blocks.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_1_17 [label=<<b>groupnorm_1_17</b><br/>2x64x16 (8.1 KB)<br/>params: x64, x64<br/>@down_modules.0.0.blocks.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_2_18 [label=<<b>mish_2_18</b><br/>2x64x16 (8.1 KB)<br/>@down_modules.0.0.blocks.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_3_19 [label=<<b>mish_3_19</b><br/>2x634 (5.1 KB)<br/>@down_modules.0.0.cond_encoder.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_3_20 [label=<<b>linear_3_20</b><br/>2x128 (1.1 KB)<br/>params: 128x634, x128<br/>@down_modules.0.0.cond_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	unflatten_1_21 [label=<<b>unflatten_1_21</b><br/>2x128x1 (1.1 KB)<br/>@down_modules.0.0.cond_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	reshape_1_22 [label=<<b>reshape_1_22</b><br/>2x2x64x1 (1.2 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_3_23 [label=<<b>getitem_3_23</b><br/>2x64x1 (656 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_4_24 [label=<<b>getitem_4_24</b><br/>2x64x1 (656 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_3_25 [label=<<b>mul_3_25</b><br/>2x64x16 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_1_26 [label=<<b>add_1_26</b><br/>2x64x16 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_2_27 [label=<<b>conv1d_2_27</b><br/>2x64x16 (8.1 KB)<br/>params: 64x64x5, x64<br/>@down_modules.0.0.blocks.1.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_2_28 [label=<<b>groupnorm_2_28</b><br/>2x64x16 (8.1 KB)<br/>params: x64, x64<br/>@down_modules.0.0.blocks.1.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_4_29 [label=<<b>mish_4_29</b><br/>2x64x16 (8.1 KB)<br/>@down_modules.0.0.blocks.1.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	conv1d_3_30 [label=<<b>conv1d_3_30</b><br/>2x64x16 (8.1 KB)<br/>params: 64x8x1, x64<br/>@down_modules.0.0.residual_conv> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_2_31 [label=<<b>add_2_31</b><br/>2x64x16 (8.1 KB)<br/>@down_modules.0.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_2_31 -> conv1d_4_32 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	add_2_31 -> identity_1_46 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	conv1d_4_32 [label=<<b>conv1d_4_32</b><br/>2x64x16 (8.1 KB)<br/>params: 64x64x5, x64<br/>@down_modules.0.1.blocks.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_3_33 [label=<<b>groupnorm_3_33</b><br/>2x64x16 (8.1 KB)<br/>params: x64, x64<br/>@down_modules.0.1.blocks.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_5_34 [label=<<b>mish_5_34</b><br/>2x64x16 (8.1 KB)<br/>@down_modules.0.1.blocks.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_6_35 [label=<<b>mish_6_35</b><br/>2x634 (5.1 KB)<br/>@down_modules.0.1.cond_encoder.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_4_36 [label=<<b>linear_4_36</b><br/>2x128 (1.1 KB)<br/>params: 128x634, x128<br/>@down_modules.0.1.cond_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	unflatten_2_37 [label=<<b>unflatten_2_37</b><br/>2x128x1 (1.1 KB)<br/>@down_modules.0.1.cond_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	reshape_2_38 [label=<<b>reshape_2_38</b><br/>2x2x64x1 (1.2 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_5_39 [label=<<b>getitem_5_39</b><br/>2x64x1 (656 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_6_40 [label=<<b>getitem_6_40</b><br/>2x64x1 (656 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_4_41 [label=<<b>mul_4_41</b><br/>2x64x16 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_3_42 [label=<<b>add_3_42</b><br/>2x64x16 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_5_43 [label=<<b>conv1d_5_43</b><br/>2x64x16 (8.1 KB)<br/>params: 64x64x5, x64<br/>@down_modules.0.1.blocks.1.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_4_44 [label=<<b>groupnorm_4_44</b><br/>2x64x16 (8.1 KB)<br/>params: x64, x64<br/>@down_modules.0.1.blocks.1.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_7_45 [label=<<b>mish_7_45</b><br/>2x64x16 (8.1 KB)<br/>@down_modules.0.1.blocks.1.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	identity_1_46 [label=<<b>identity_1_46</b><br/>2x64x16 (8.1 KB)<br/>@down_modules.0.1.residual_conv> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_4_47 [label=<<b>add_4_47</b><br/>2x64x16 (8.1 KB)<br/>@down_modules.0.1> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_4_47 -> conv1d_6_48 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	conv1d_6_48 [label=<<b>conv1d_6_48</b><br/>2x64x8 (4.1 KB)<br/>params: 64x64x3, x64<br/>@down_modules.0.2.conv> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	conv1d_6_48 -> conv1d_7_49 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	conv1d_6_48 -> conv1d_9_63 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	conv1d_7_49 [label=<<b>conv1d_7_49</b><br/>2x128x8 (8.1 KB)<br/>params: 128x64x5, x128<br/>@down_modules.1.0.blocks.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_5_50 [label=<<b>groupnorm_5_50</b><br/>2x128x8 (8.1 KB)<br/>params: x128, x128<br/>@down_modules.1.0.blocks.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_8_51 [label=<<b>mish_8_51</b><br/>2x128x8 (8.1 KB)<br/>@down_modules.1.0.blocks.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_9_52 [label=<<b>mish_9_52</b><br/>2x634 (5.1 KB)<br/>@down_modules.1.0.cond_encoder.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_5_53 [label=<<b>linear_5_53</b><br/>2x256 (2.1 KB)<br/>params: 256x634, x256<br/>@down_modules.1.0.cond_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	unflatten_3_54 [label=<<b>unflatten_3_54</b><br/>2x256x1 (2.1 KB)<br/>@down_modules.1.0.cond_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	reshape_3_55 [label=<<b>reshape_3_55</b><br/>2x2x128x1 (2.2 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_7_56 [label=<<b>getitem_7_56</b><br/>2x128x1 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_8_57 [label=<<b>getitem_8_57</b><br/>2x128x1 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_5_58 [label=<<b>mul_5_58</b><br/>2x128x8 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_5_59 [label=<<b>add_5_59</b><br/>2x128x8 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_8_60 [label=<<b>conv1d_8_60</b><br/>2x128x8 (8.1 KB)<br/>params: 128x128x5, x128<br/>@down_modules.1.0.blocks.1.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_6_61 [label=<<b>groupnorm_6_61</b><br/>2x128x8 (8.1 KB)<br/>params: x128, x128<br/>@down_modules.1.0.blocks.1.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_10_62 [label=<<b>mish_10_62</b><br/>2x128x8 (8.1 KB)<br/>@down_modules.1.0.blocks.1.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	conv1d_9_63 [label=<<b>conv1d_9_63</b><br/>2x128x8 (8.1 KB)<br/>params: 128x64x1, x128<br/>@down_modules.1.0.residual_conv> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_6_64 [label=<<b>add_6_64</b><br/>2x128x8 (8.1 KB)<br/>@down_modules.1.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_6_64 -> conv1d_10_65 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	add_6_64 -> identity_2_79 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	conv1d_10_65 [label=<<b>conv1d_10_65</b><br/>2x128x8 (8.1 KB)<br/>params: 128x128x5, x128<br/>@down_modules.1.1.blocks.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_7_66 [label=<<b>groupnorm_7_66</b><br/>2x128x8 (8.1 KB)<br/>params: x128, x128<br/>@down_modules.1.1.blocks.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_11_67 [label=<<b>mish_11_67</b><br/>2x128x8 (8.1 KB)<br/>@down_modules.1.1.blocks.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_12_68 [label=<<b>mish_12_68</b><br/>2x634 (5.1 KB)<br/>@down_modules.1.1.cond_encoder.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_6_69 [label=<<b>linear_6_69</b><br/>2x256 (2.1 KB)<br/>params: 256x634, x256<br/>@down_modules.1.1.cond_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	unflatten_4_70 [label=<<b>unflatten_4_70</b><br/>2x256x1 (2.1 KB)<br/>@down_modules.1.1.cond_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	reshape_4_71 [label=<<b>reshape_4_71</b><br/>2x2x128x1 (2.2 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_9_72 [label=<<b>getitem_9_72</b><br/>2x128x1 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_10_73 [label=<<b>getitem_10_73</b><br/>2x128x1 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_6_74 [label=<<b>mul_6_74</b><br/>2x128x8 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_7_75 [label=<<b>add_7_75</b><br/>2x128x8 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_11_76 [label=<<b>conv1d_11_76</b><br/>2x128x8 (8.1 KB)<br/>params: 128x128x5, x128<br/>@down_modules.1.1.blocks.1.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_8_77 [label=<<b>groupnorm_8_77</b><br/>2x128x8 (8.1 KB)<br/>params: x128, x128<br/>@down_modules.1.1.blocks.1.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_13_78 [label=<<b>mish_13_78</b><br/>2x128x8 (8.1 KB)<br/>@down_modules.1.1.blocks.1.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	identity_2_79 [label=<<b>identity_2_79</b><br/>2x128x8 (8.1 KB)<br/>@down_modules.1.1.residual_conv> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_8_80 [label=<<b>add_8_80</b><br/>2x128x8 (8.1 KB)<br/>@down_modules.1.1> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_8_80 -> conv1d_12_81 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	add_8_80 -> cat_4_181 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	conv1d_12_81 [label=<<b>conv1d_12_81</b><br/>2x128x4 (4.1 KB)<br/>params: 128x128x3, x128<br/>@down_modules.1.2.conv> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	conv1d_12_81 -> conv1d_13_82 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	conv1d_12_81 -> conv1d_15_96 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	conv1d_13_82 [label=<<b>conv1d_13_82</b><br/>2x256x4 (8.1 KB)<br/>params: 256x128x5, x256<br/>@down_modules.2.0.blocks.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_9_83 [label=<<b>groupnorm_9_83</b><br/>2x256x4 (8.1 KB)<br/>params: x256, x256<br/>@down_modules.2.0.blocks.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_14_84 [label=<<b>mish_14_84</b><br/>2x256x4 (8.1 KB)<br/>@down_modules.2.0.blocks.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_15_85 [label=<<b>mish_15_85</b><br/>2x634 (5.1 KB)<br/>@down_modules.2.0.cond_encoder.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_7_86 [label=<<b>linear_7_86</b><br/>2x512 (4.1 KB)<br/>params: 512x634, x512<br/>@down_modules.2.0.cond_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	unflatten_5_87 [label=<<b>unflatten_5_87</b><br/>2x512x1 (4.1 KB)<br/>@down_modules.2.0.cond_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	reshape_5_88 [label=<<b>reshape_5_88</b><br/>2x2x256x1 (4.2 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_11_89 [label=<<b>getitem_11_89</b><br/>2x256x1 (2.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_12_90 [label=<<b>getitem_12_90</b><br/>2x256x1 (2.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_7_91 [label=<<b>mul_7_91</b><br/>2x256x4 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_9_92 [label=<<b>add_9_92</b><br/>2x256x4 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_14_93 [label=<<b>conv1d_14_93</b><br/>2x256x4 (8.1 KB)<br/>params: 256x256x5, x256<br/>@down_modules.2.0.blocks.1.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_10_94 [label=<<b>groupnorm_10_94</b><br/>2x256x4 (8.1 KB)<br/>params: x256, x256<br/>@down_modules.2.0.blocks.1.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_16_95 [label=<<b>mish_16_95</b><br/>2x256x4 (8.1 KB)<br/>@down_modules.2.0.blocks.1.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	conv1d_15_96 [label=<<b>conv1d_15_96</b><br/>2x256x4 (8.1 KB)<br/>params: 256x128x1, x256<br/>@down_modules.2.0.residual_conv> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_10_97 [label=<<b>add_10_97</b><br/>2x256x4 (8.1 KB)<br/>@down_modules.2.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_10_97 -> conv1d_16_98 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	add_10_97 -> identity_3_112 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	conv1d_16_98 [label=<<b>conv1d_16_98</b><br/>2x256x4 (8.1 KB)<br/>params: 256x256x5, x256<br/>@down_modules.2.1.blocks.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_11_99 [label=<<b>groupnorm_11_99</b><br/>2x256x4 (8.1 KB)<br/>params: x256, x256<br/>@down_modules.2.1.blocks.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_17_100 [label=<<b>mish_17_100</b><br/>2x256x4 (8.1 KB)<br/>@down_modules.2.1.blocks.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_18_101 [label=<<b>mish_18_101</b><br/>2x634 (5.1 KB)<br/>@down_modules.2.1.cond_encoder.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_8_102 [label=<<b>linear_8_102</b><br/>2x512 (4.1 KB)<br/>params: 512x634, x512<br/>@down_modules.2.1.cond_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	unflatten_6_103 [label=<<b>unflatten_6_103</b><br/>2x512x1 (4.1 KB)<br/>@down_modules.2.1.cond_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	reshape_6_104 [label=<<b>reshape_6_104</b><br/>2x2x256x1 (4.2 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_13_105 [label=<<b>getitem_13_105</b><br/>2x256x1 (2.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_14_106 [label=<<b>getitem_14_106</b><br/>2x256x1 (2.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_8_107 [label=<<b>mul_8_107</b><br/>2x256x4 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_11_108 [label=<<b>add_11_108</b><br/>2x256x4 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_17_109 [label=<<b>conv1d_17_109</b><br/>2x256x4 (8.1 KB)<br/>params: 256x256x5, x256<br/>@down_modules.2.1.blocks.1.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_12_110 [label=<<b>groupnorm_12_110</b><br/>2x256x4 (8.1 KB)<br/>params: x256, x256<br/>@down_modules.2.1.blocks.1.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_19_111 [label=<<b>mish_19_111</b><br/>2x256x4 (8.1 KB)<br/>@down_modules.2.1.blocks.1.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	identity_3_112 [label=<<b>identity_3_112</b><br/>2x256x4 (8.1 KB)<br/>@down_modules.2.1.residual_conv> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_12_113 [label=<<b>add_12_113</b><br/>2x256x4 (8.1 KB)<br/>@down_modules.2.1> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_12_113 -> identity_4_114 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	identity_4_114 [label=<<b>identity_4_114</b><br/>2x256x4 (8.1 KB)<br/>@down_modules.2.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	identity_4_114 -> conv1d_18_115 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	identity_4_114 -> identity_5_129 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	conv1d_18_115 [label=<<b>conv1d_18_115</b><br/>2x256x4 (8.1 KB)<br/>params: 256x256x5, x256<br/>@mid_modules.0.blocks.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_13_116 [label=<<b>groupnorm_13_116</b><br/>2x256x4 (8.1 KB)<br/>params: x256, x256<br/>@mid_modules.0.blocks.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_20_117 [label=<<b>mish_20_117</b><br/>2x256x4 (8.1 KB)<br/>@mid_modules.0.blocks.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_21_118 [label=<<b>mish_21_118</b><br/>2x634 (5.1 KB)<br/>@mid_modules.0.cond_encoder.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_9_119 [label=<<b>linear_9_119</b><br/>2x512 (4.1 KB)<br/>params: 512x634, x512<br/>@mid_modules.0.cond_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	unflatten_7_120 [label=<<b>unflatten_7_120</b><br/>2x512x1 (4.1 KB)<br/>@mid_modules.0.cond_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	reshape_7_121 [label=<<b>reshape_7_121</b><br/>2x2x256x1 (4.2 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_15_122 [label=<<b>getitem_15_122</b><br/>2x256x1 (2.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_16_123 [label=<<b>getitem_16_123</b><br/>2x256x1 (2.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_9_124 [label=<<b>mul_9_124</b><br/>2x256x4 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_13_125 [label=<<b>add_13_125</b><br/>2x256x4 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_19_126 [label=<<b>conv1d_19_126</b><br/>2x256x4 (8.1 KB)<br/>params: 256x256x5, x256<br/>@mid_modules.0.blocks.1.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_14_127 [label=<<b>groupnorm_14_127</b><br/>2x256x4 (8.1 KB)<br/>params: x256, x256<br/>@mid_modules.0.blocks.1.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_22_128 [label=<<b>mish_22_128</b><br/>2x256x4 (8.1 KB)<br/>@mid_modules.0.blocks.1.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	identity_5_129 [label=<<b>identity_5_129</b><br/>2x256x4 (8.1 KB)<br/>@mid_modules.0.residual_conv> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_14_130 [label=<<b>add_14_130</b><br/>2x256x4 (8.1 KB)<br/>@mid_modules.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_14_130 -> conv1d_20_131 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	add_14_130 -> identity_6_145 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	conv1d_20_131 [label=<<b>conv1d_20_131</b><br/>2x256x4 (8.1 KB)<br/>params: 256x256x5, x256<br/>@mid_modules.1.blocks.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_15_132 [label=<<b>groupnorm_15_132</b><br/>2x256x4 (8.1 KB)<br/>params: x256, x256<br/>@mid_modules.1.blocks.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_23_133 [label=<<b>mish_23_133</b><br/>2x256x4 (8.1 KB)<br/>@mid_modules.1.blocks.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_24_134 [label=<<b>mish_24_134</b><br/>2x634 (5.1 KB)<br/>@mid_modules.1.cond_encoder.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_10_135 [label=<<b>linear_10_135</b><br/>2x512 (4.1 KB)<br/>params: 512x634, x512<br/>@mid_modules.1.cond_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	unflatten_8_136 [label=<<b>unflatten_8_136</b><br/>2x512x1 (4.1 KB)<br/>@mid_modules.1.cond_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	reshape_8_137 [label=<<b>reshape_8_137</b><br/>2x2x256x1 (4.2 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_17_138 [label=<<b>getitem_17_138</b><br/>2x256x1 (2.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_18_139 [label=<<b>getitem_18_139</b><br/>2x256x1 (2.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_10_140 [label=<<b>mul_10_140</b><br/>2x256x4 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_15_141 [label=<<b>add_15_141</b><br/>2x256x4 (8.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_21_142 [label=<<b>conv1d_21_142</b><br/>2x256x4 (8.1 KB)<br/>params: 256x256x5, x256<br/>@mid_modules.1.blocks.1.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_16_143 [label=<<b>groupnorm_16_143</b><br/>2x256x4 (8.1 KB)<br/>params: x256, x256<br/>@mid_modules.1.blocks.1.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_25_144 [label=<<b>mish_25_144</b><br/>2x256x4 (8.1 KB)<br/>@mid_modules.1.blocks.1.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	identity_6_145 [label=<<b>identity_6_145</b><br/>2x256x4 (8.1 KB)<br/>@mid_modules.1.residual_conv> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_16_146 [label=<<b>add_16_146</b><br/>2x256x4 (8.1 KB)<br/>@mid_modules.1> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_16_146 -> cat_3_147 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	cat_3_147 [label=<<b>cat_3_147</b><br/>2x512x4 (16.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_22_148 [label=<<b>conv1d_22_148</b><br/>2x128x4 (4.1 KB)<br/>params: 128x512x5, x128<br/>@up_modules.0.0.blocks.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_17_149 [label=<<b>groupnorm_17_149</b><br/>2x128x4 (4.1 KB)<br/>params: x128, x128<br/>@up_modules.0.0.blocks.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_26_150 [label=<<b>mish_26_150</b><br/>2x128x4 (4.1 KB)<br/>@up_modules.0.0.blocks.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_27_151 [label=<<b>mish_27_151</b><br/>2x634 (5.1 KB)<br/>@up_modules.0.0.cond_encoder.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_11_152 [label=<<b>linear_11_152</b><br/>2x256 (2.1 KB)<br/>params: 256x634, x256<br/>@up_modules.0.0.cond_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	unflatten_9_153 [label=<<b>unflatten_9_153</b><br/>2x256x1 (2.1 KB)<br/>@up_modules.0.0.cond_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	reshape_9_154 [label=<<b>reshape_9_154</b><br/>2x2x128x1 (2.2 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_19_155 [label=<<b>getitem_19_155</b><br/>2x128x1 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_19_155 -> mul_11_157 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	getitem_20_156 [label=<<b>getitem_20_156</b><br/>2x128x1 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_20_156 -> add_17_158 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	mul_11_157 [label=<<b>mul_11_157</b><br/>2x128x4 (4.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_17_158 [label=<<b>add_17_158</b><br/>2x128x4 (4.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_23_159 [label=<<b>conv1d_23_159</b><br/>2x128x4 (4.1 KB)<br/>params: 128x128x5, x128<br/>@up_modules.0.0.blocks.1.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_18_160 [label=<<b>groupnorm_18_160</b><br/>2x128x4 (4.1 KB)<br/>params: x128, x128<br/>@up_modules.0.0.blocks.1.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_28_161 [label=<<b>mish_28_161</b><br/>2x128x4 (4.1 KB)<br/>@up_modules.0.0.blocks.1.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	conv1d_24_162 [label=<<b>conv1d_24_162</b><br/>2x128x4 (4.1 KB)<br/>params: 128x512x1, x128<br/>@up_modules.0.0.residual_conv> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_18_163 [label=<<b>add_18_163</b><br/>2x128x4 (4.1 KB)<br/>@up_modules.0.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	conv1d_25_164 [label=<<b>conv1d_25_164</b><br/>2x128x4 (4.1 KB)<br/>params: 128x128x5, x128<br/>@up_modules.0.1.blocks.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_19_165 [label=<<b>groupnorm_19_165</b><br/>2x128x4 (4.1 KB)<br/>params: x128, x128<br/>@up_modules.0.1.blocks.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_29_166 [label=<<b>mish_29_166</b><br/>2x128x4 (4.1 KB)<br/>@up_modules.0.1.blocks.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_30_167 [label=<<b>mish_30_167</b><br/>2x634 (5.1 KB)<br/>@up_modules.0.1.cond_encoder.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_12_168 [label=<<b>linear_12_168</b><br/>2x256 (2.1 KB)<br/>params: 256x634, x256<br/>@up_modules.0.1.cond_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	unflatten_10_169 [label=<<b>unflatten_10_169</b><br/>2x256x1 (2.1 KB)<br/>@up_modules.0.1.cond_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	reshape_10_170 [label=<<b>reshape_10_170</b><br/>2x2x128x1 (2.2 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_21_171 [label=<<b>getitem_21_171</b><br/>2x128x1 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_21_171 -> mul_12_173 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	getitem_22_172 [label=<<b>getitem_22_172</b><br/>2x128x1 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_22_172 -> add_19_174 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	mul_12_173 [label=<<b>mul_12_173</b><br/>2x128x4 (4.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_19_174 [label=<<b>add_19_174</b><br/>2x128x4 (4.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_26_175 [label=<<b>conv1d_26_175</b><br/>2x128x4 (4.1 KB)<br/>params: 128x128x5, x128<br/>@up_modules.0.1.blocks.1.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_20_176 [label=<<b>groupnorm_20_176</b><br/>2x128x4 (4.1 KB)<br/>params: x128, x128<br/>@up_modules.0.1.blocks.1.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_31_177 [label=<<b>mish_31_177</b><br/>2x128x4 (4.1 KB)<br/>@up_modules.0.1.blocks.1.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	identity_7_178 [label=<<b>identity_7_178</b><br/>2x128x4 (4.1 KB)<br/>@up_modules.0.1.residual_conv> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_20_179 [label=<<b>add_20_179</b><br/>2x128x4 (4.1 KB)<br/>@up_modules.0.1> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	convtranspose1d_1_180 [label=<<b>convtranspose1d_1_180</b><br/>2x128x8 (8.1 KB)<br/>params: 128x128x4, x128<br/>@up_modules.0.2.conv> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	cat_4_181 [label=<<b>cat_4_181</b><br/>2x256x8 (16.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_27_182 [label=<<b>conv1d_27_182</b><br/>2x64x8 (4.1 KB)<br/>params: 64x256x5, x64<br/>@up_modules.1.0.blocks.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_21_183 [label=<<b>groupnorm_21_183</b><br/>2x64x8 (4.1 KB)<br/>params: x64, x64<br/>@up_modules.1.0.blocks.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_32_184 [label=<<b>mish_32_184</b><br/>2x64x8 (4.1 KB)<br/>@up_modules.1.0.blocks.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_33_185 [label=<<b>mish_33_185</b><br/>2x634 (5.1 KB)<br/>@up_modules.1.0.cond_encoder.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_13_186 [label=<<b>linear_13_186</b><br/>2x128 (1.1 KB)<br/>params: 128x634, x128<br/>@up_modules.1.0.cond_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	unflatten_11_187 [label=<<b>unflatten_11_187</b><br/>2x128x1 (1.1 KB)<br/>@up_modules.1.0.cond_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	reshape_11_188 [label=<<b>reshape_11_188</b><br/>2x2x64x1 (1.2 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_23_189 [label=<<b>getitem_23_189</b><br/>2x64x1 (656 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_23_189 -> mul_13_191 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	getitem_24_190 [label=<<b>getitem_24_190</b><br/>2x64x1 (656 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_24_190 -> add_21_192 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	mul_13_191 [label=<<b>mul_13_191</b><br/>2x64x8 (4.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_21_192 [label=<<b>add_21_192</b><br/>2x64x8 (4.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_28_193 [label=<<b>conv1d_28_193</b><br/>2x64x8 (4.1 KB)<br/>params: 64x64x5, x64<br/>@up_modules.1.0.blocks.1.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_22_194 [label=<<b>groupnorm_22_194</b><br/>2x64x8 (4.1 KB)<br/>params: x64, x64<br/>@up_modules.1.0.blocks.1.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_34_195 [label=<<b>mish_34_195</b><br/>2x64x8 (4.1 KB)<br/>@up_modules.1.0.blocks.1.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	conv1d_29_196 [label=<<b>conv1d_29_196</b><br/>2x64x8 (4.1 KB)<br/>params: 64x256x1, x64<br/>@up_modules.1.0.residual_conv> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_22_197 [label=<<b>add_22_197</b><br/>2x64x8 (4.1 KB)<br/>@up_modules.1.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	conv1d_30_198 [label=<<b>conv1d_30_198</b><br/>2x64x8 (4.1 KB)<br/>params: 64x64x5, x64<br/>@up_modules.1.1.blocks.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_23_199 [label=<<b>groupnorm_23_199</b><br/>2x64x8 (4.1 KB)<br/>params: x64, x64<br/>@up_modules.1.1.blocks.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_35_200 [label=<<b>mish_35_200</b><br/>2x64x8 (4.1 KB)<br/>@up_modules.1.1.blocks.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_36_201 [label=<<b>mish_36_201</b><br/>2x634 (5.1 KB)<br/>@up_modules.1.1.cond_encoder.0> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_14_202 [label=<<b>linear_14_202</b><br/>2x128 (1.1 KB)<br/>params: 128x634, x128<br/>@up_modules.1.1.cond_encoder.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	unflatten_12_203 [label=<<b>unflatten_12_203</b><br/>2x128x1 (1.1 KB)<br/>@up_modules.1.1.cond_encoder.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	reshape_12_204 [label=<<b>reshape_12_204</b><br/>2x2x64x1 (1.2 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_25_205 [label=<<b>getitem_25_205</b><br/>2x64x1 (656 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_25_205 -> mul_14_207 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	getitem_26_206 [label=<<b>getitem_26_206</b><br/>2x64x1 (656 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_26_206 -> add_23_208 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	mul_14_207 [label=<<b>mul_14_207</b><br/>2x64x8 (4.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_23_208 [label=<<b>add_23_208</b><br/>2x64x8 (4.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	conv1d_31_209 [label=<<b>conv1d_31_209</b><br/>2x64x8 (4.1 KB)<br/>params: 64x64x5, x64<br/>@up_modules.1.1.blocks.1.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_24_210 [label=<<b>groupnorm_24_210</b><br/>2x64x8 (4.1 KB)<br/>params: x64, x64<br/>@up_modules.1.1.blocks.1.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_37_211 [label=<<b>mish_37_211</b><br/>2x64x8 (4.1 KB)<br/>@up_modules.1.1.blocks.1.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	identity_8_212 [label=<<b>identity_8_212</b><br/>2x64x8 (4.1 KB)<br/>@up_modules.1.1.residual_conv> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_24_213 [label=<<b>add_24_213</b><br/>2x64x8 (4.1 KB)<br/>@up_modules.1.1> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	convtranspose1d_2_214 [label=<<b>convtranspose1d_2_214</b><br/>2x64x16 (8.1 KB)<br/>params: 64x64x4, x64<br/>@up_modules.1.2.conv> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	conv1d_32_215 [label=<<b>conv1d_32_215</b><br/>2x64x16 (8.1 KB)<br/>params: 64x64x5, x64<br/>@final_conv.0.block.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	groupnorm_25_216 [label=<<b>groupnorm_25_216</b><br/>2x64x16 (8.1 KB)<br/>params: x64, x64<br/>@final_conv.0.block.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	mish_38_217 [label=<<b>mish_38_217</b><br/>2x64x16 (8.1 KB)<br/>@final_conv.0.block.2> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	conv1d_33_218 [label=<<b>conv1d_33_218</b><br/>2x8x16 (1.1 KB)<br/>params: 8x64x1, x8<br/>@final_conv.1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	moveaxis_2_219 [label=<<b>moveaxis_2_219</b><br/>2x16x8 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	moveaxis_2_219 -> output_1 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	output_1 [label=<<b>output_1</b><br/>2x16x8 (1.1 KB)<br/>@output> color=black fillcolor="#ff9999" fontcolor=black ordering=out shape=oval style="filled,solid"]
+	{
+		rank=sink
+		output_1
+	}
+	subgraph cluster_diffusion_step_encoder_pass1 {
+		fillcolor=white label=<<B>@diffusion_step_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		cat_1_11 -> linear_1_12 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		linear_1_12 -> mish_1_13 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_1_13 -> linear_2_14 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		fillcolor=white label=<<B>@down_modules.0.0</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		mish_2_18 -> mul_3_25 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		unflatten_1_21 -> reshape_1_22 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_1_22 -> getitem_3_23 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_1_22 -> getitem_4_24 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_3_23 -> mul_3_25 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_4_24 -> add_1_26 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mul_3_25 -> add_1_26 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_1_26 -> conv1d_2_27 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_4_29 -> add_2_31 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		conv1d_3_30 -> add_2_31 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		fillcolor=white label=<<B>@down_modules.0.1</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		mish_5_34 -> mul_4_41 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		unflatten_2_37 -> reshape_2_38 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_2_38 -> getitem_5_39 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_2_38 -> getitem_6_40 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_5_39 -> mul_4_41 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_6_40 -> add_3_42 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mul_4_41 -> add_3_42 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_3_42 -> conv1d_5_43 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_7_45 -> add_4_47 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		identity_1_46 -> add_4_47 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph "cluster_down_modules.0.2_pass1" {
+		fillcolor=white label=<<B>@down_modules.0.2</B><br align='left'/>(Downsample1d)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,dashed"
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		fillcolor=white label=<<B>@down_modules.1.0</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		mish_8_51 -> mul_5_58 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		unflatten_3_54 -> reshape_3_55 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_3_55 -> getitem_7_56 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_3_55 -> getitem_8_57 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_7_56 -> mul_5_58 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_8_57 -> add_5_59 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mul_5_58 -> add_5_59 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_5_59 -> conv1d_8_60 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_10_62 -> add_6_64 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		conv1d_9_63 -> add_6_64 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		fillcolor=white label=<<B>@down_modules.1.1</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		mish_11_67 -> mul_6_74 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		unflatten_4_70 -> reshape_4_71 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_4_71 -> getitem_9_72 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_4_71 -> getitem_10_73 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_9_72 -> mul_6_74 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_10_73 -> add_7_75 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mul_6_74 -> add_7_75 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_7_75 -> conv1d_11_76 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_13_78 -> add_8_80 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		identity_2_79 -> add_8_80 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph "cluster_down_modules.1.2_pass1" {
+		fillcolor=white label=<<B>@down_modules.1.2</B><br align='left'/>(Downsample1d)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,dashed"
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		fillcolor=white label=<<B>@down_modules.2.0</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		mish_14_84 -> mul_7_91 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		unflatten_5_87 -> reshape_5_88 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_5_88 -> getitem_11_89 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_5_88 -> getitem_12_90 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_11_89 -> mul_7_91 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_12_90 -> add_9_92 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mul_7_91 -> add_9_92 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_9_92 -> conv1d_14_93 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_16_95 -> add_10_97 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		conv1d_15_96 -> add_10_97 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		fillcolor=white label=<<B>@down_modules.2.1</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		mish_17_100 -> mul_8_107 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		unflatten_6_103 -> reshape_6_104 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_6_104 -> getitem_13_105 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_6_104 -> getitem_14_106 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_13_105 -> mul_8_107 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_14_106 -> add_11_108 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mul_8_107 -> add_11_108 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_11_108 -> conv1d_17_109 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_19_111 -> add_12_113 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		identity_3_112 -> add_12_113 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph "cluster_down_modules.2.2_pass1" {
+		fillcolor=white label=<<B>@down_modules.2.2</B><br align='left'/>(Identity)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,dashed"
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		fillcolor=white label=<<B>@mid_modules.0</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		mish_20_117 -> mul_9_124 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		unflatten_7_120 -> reshape_7_121 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_7_121 -> getitem_15_122 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_7_121 -> getitem_16_123 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_15_122 -> mul_9_124 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_16_123 -> add_13_125 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mul_9_124 -> add_13_125 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_13_125 -> conv1d_19_126 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_22_128 -> add_14_130 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		identity_5_129 -> add_14_130 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		identity_5_129 -> cat_3_147 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		cat_3_147 -> conv1d_22_148 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		cat_3_147 -> conv1d_24_162 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_18_163 -> conv1d_25_164 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_18_163 -> identity_7_178 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_20_179 -> convtranspose1d_1_180 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		convtranspose1d_1_180 -> cat_4_181 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		cat_4_181 -> conv1d_27_182 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		cat_4_181 -> conv1d_29_196 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_22_197 -> conv1d_30_198 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_22_197 -> identity_8_212 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_24_213 -> convtranspose1d_2_214 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		convtranspose1d_2_214 -> conv1d_32_215 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		conv1d_33_218 -> moveaxis_2_219 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		fillcolor=white label=<<B>@mid_modules.1</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		mish_23_133 -> mul_10_140 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		unflatten_8_136 -> reshape_8_137 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_8_137 -> getitem_17_138 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_8_137 -> getitem_18_139 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_17_138 -> mul_10_140 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		getitem_18_139 -> add_15_141 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mul_10_140 -> add_15_141 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_15_141 -> conv1d_21_142 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_25_144 -> add_16_146 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		identity_6_145 -> add_16_146 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		fillcolor=white label=<<B>@up_modules.0.0</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		mish_26_150 -> mul_11_157 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		unflatten_9_153 -> reshape_9_154 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_9_154 -> getitem_19_155 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_9_154 -> getitem_20_156 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mul_11_157 -> add_17_158 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_17_158 -> conv1d_23_159 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_28_161 -> add_18_163 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		conv1d_24_162 -> add_18_163 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		fillcolor=white label=<<B>@up_modules.0.1</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		mish_29_166 -> mul_12_173 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		unflatten_10_169 -> reshape_10_170 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_10_170 -> getitem_21_171 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_10_170 -> getitem_22_172 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mul_12_173 -> add_19_174 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_19_174 -> conv1d_26_175 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_31_177 -> add_20_179 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		identity_7_178 -> add_20_179 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		fillcolor=white label=<<B>@up_modules.1.0</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		mish_32_184 -> mul_13_191 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		unflatten_11_187 -> reshape_11_188 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_11_188 -> getitem_23_189 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_11_188 -> getitem_24_190 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mul_13_191 -> add_21_192 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_21_192 -> conv1d_28_193 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_34_195 -> add_22_197 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		conv1d_29_196 -> add_22_197 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		fillcolor=white label=<<B>@up_modules.1.1</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		mish_35_200 -> mul_14_207 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		unflatten_12_203 -> reshape_12_204 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_12_204 -> getitem_25_205 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		reshape_12_204 -> getitem_26_206 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mul_14_207 -> add_23_208 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_23_208 -> conv1d_31_209 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		mish_37_211 -> add_24_213 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		identity_8_212 -> add_24_213 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph cluster_diffusion_step_encoder_pass1 {
+		subgraph "cluster_diffusion_step_encoder.0_pass1" {
+			fillcolor=white label=<<B>@diffusion_step_encoder.0</B><br align='left'/>(SinusoidalPosEmb)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			arange_1_3 -> mul_1_4 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+			mul_1_4 -> exp_1_5 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+			exp_1_5 -> getitem_2_7 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+			getitem_1_6 -> mul_2_8 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			getitem_2_7 -> mul_2_8 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+			mul_2_8 -> sin_1_9 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			mul_2_8 -> cos_1_10 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			sin_1_9 -> cat_1_11 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			cos_1_10 -> cat_1_11 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph cluster_diffusion_step_encoder_pass1 {
+		subgraph "cluster_diffusion_step_encoder.1_pass1" {
+			fillcolor=white label=<<B>@diffusion_step_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph cluster_diffusion_step_encoder_pass1 {
+		subgraph "cluster_diffusion_step_encoder.2_pass1" {
+			fillcolor=white label=<<B>@diffusion_step_encoder.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph cluster_diffusion_step_encoder_pass1 {
+		subgraph "cluster_diffusion_step_encoder.3_pass1" {
+			fillcolor=white label=<<B>@diffusion_step_encoder.3</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.blocks.0_pass1" {
+			fillcolor=white label=<<B>@down_modules.0.0.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.cond_encoder_pass1" {
+			fillcolor=white label=<<B>@down_modules.0.0.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_3_19 -> linear_3_20 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_3_20 -> unflatten_1_21 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.blocks.1_pass1" {
+			fillcolor=white label=<<B>@down_modules.0.0.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.residual_conv_pass1" {
+			fillcolor=white label=<<B>@down_modules.0.0.residual_conv</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.blocks.0_pass1" {
+			fillcolor=white label=<<B>@down_modules.0.1.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.cond_encoder_pass1" {
+			fillcolor=white label=<<B>@down_modules.0.1.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_6_35 -> linear_4_36 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_4_36 -> unflatten_2_37 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.blocks.1_pass1" {
+			fillcolor=white label=<<B>@down_modules.0.1.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.residual_conv_pass1" {
+			fillcolor=white label=<<B>@down_modules.0.1.residual_conv</B><br align='left'/>(Identity)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_down_modules.0.2_pass1" {
+		subgraph "cluster_down_modules.0.2.conv_pass1" {
+			fillcolor=white label=<<B>@down_modules.0.2.conv</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.blocks.0_pass1" {
+			fillcolor=white label=<<B>@down_modules.1.0.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.cond_encoder_pass1" {
+			fillcolor=white label=<<B>@down_modules.1.0.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_9_52 -> linear_5_53 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_5_53 -> unflatten_3_54 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.blocks.1_pass1" {
+			fillcolor=white label=<<B>@down_modules.1.0.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.residual_conv_pass1" {
+			fillcolor=white label=<<B>@down_modules.1.0.residual_conv</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.blocks.0_pass1" {
+			fillcolor=white label=<<B>@down_modules.1.1.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.cond_encoder_pass1" {
+			fillcolor=white label=<<B>@down_modules.1.1.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_12_68 -> linear_6_69 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_6_69 -> unflatten_4_70 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.blocks.1_pass1" {
+			fillcolor=white label=<<B>@down_modules.1.1.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.residual_conv_pass1" {
+			fillcolor=white label=<<B>@down_modules.1.1.residual_conv</B><br align='left'/>(Identity)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_down_modules.1.2_pass1" {
+		subgraph "cluster_down_modules.1.2.conv_pass1" {
+			fillcolor=white label=<<B>@down_modules.1.2.conv</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.blocks.0_pass1" {
+			fillcolor=white label=<<B>@down_modules.2.0.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.cond_encoder_pass1" {
+			fillcolor=white label=<<B>@down_modules.2.0.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_15_85 -> linear_7_86 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_7_86 -> unflatten_5_87 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.blocks.1_pass1" {
+			fillcolor=white label=<<B>@down_modules.2.0.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.residual_conv_pass1" {
+			fillcolor=white label=<<B>@down_modules.2.0.residual_conv</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.blocks.0_pass1" {
+			fillcolor=white label=<<B>@down_modules.2.1.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.cond_encoder_pass1" {
+			fillcolor=white label=<<B>@down_modules.2.1.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_18_101 -> linear_8_102 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_8_102 -> unflatten_6_103 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.blocks.1_pass1" {
+			fillcolor=white label=<<B>@down_modules.2.1.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.residual_conv_pass1" {
+			fillcolor=white label=<<B>@down_modules.2.1.residual_conv</B><br align='left'/>(Identity)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.blocks.0_pass1" {
+			fillcolor=white label=<<B>@mid_modules.0.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.cond_encoder_pass1" {
+			fillcolor=white label=<<B>@mid_modules.0.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_21_118 -> linear_9_119 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_9_119 -> unflatten_7_120 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.blocks.1_pass1" {
+			fillcolor=white label=<<B>@mid_modules.0.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.residual_conv_pass1" {
+			fillcolor=white label=<<B>@mid_modules.0.residual_conv</B><br align='left'/>(Identity)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			fillcolor=white label=<<B>@up_modules.0.0</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_26_150 -> mul_11_157 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			unflatten_9_153 -> reshape_9_154 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			reshape_9_154 -> getitem_19_155 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			reshape_9_154 -> getitem_20_156 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			mul_11_157 -> add_17_158 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			add_17_158 -> conv1d_23_159 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			mish_28_161 -> add_18_163 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			conv1d_24_162 -> add_18_163 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			fillcolor=white label=<<B>@up_modules.0.1</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_29_166 -> mul_12_173 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			unflatten_10_169 -> reshape_10_170 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			reshape_10_170 -> getitem_21_171 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			reshape_10_170 -> getitem_22_172 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			mul_12_173 -> add_19_174 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			add_19_174 -> conv1d_26_175 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			mish_31_177 -> add_20_179 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			identity_7_178 -> add_20_179 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.2_pass1" {
+			fillcolor=white label=<<B>@up_modules.0.2</B><br align='left'/>(Upsample1d)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			fillcolor=white label=<<B>@up_modules.1.0</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_32_184 -> mul_13_191 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			unflatten_11_187 -> reshape_11_188 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			reshape_11_188 -> getitem_23_189 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			reshape_11_188 -> getitem_24_190 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			mul_13_191 -> add_21_192 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			add_21_192 -> conv1d_28_193 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			mish_34_195 -> add_22_197 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			conv1d_29_196 -> add_22_197 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			fillcolor=white label=<<B>@up_modules.1.1</B><br align='left'/>(ConditionalResidualBlock1D)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_35_200 -> mul_14_207 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			unflatten_12_203 -> reshape_12_204 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			reshape_12_204 -> getitem_25_205 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			reshape_12_204 -> getitem_26_206 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			mul_14_207 -> add_23_208 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			add_23_208 -> conv1d_31_209 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			mish_37_211 -> add_24_213 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			identity_8_212 -> add_24_213 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.2_pass1" {
+			fillcolor=white label=<<B>@up_modules.1.2</B><br align='left'/>(Upsample1d)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph cluster_final_conv_pass1 {
+			fillcolor=white label=<<B>@final_conv</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_38_217 -> conv1d_33_218 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.blocks.0_pass1" {
+			fillcolor=white label=<<B>@mid_modules.1.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.cond_encoder_pass1" {
+			fillcolor=white label=<<B>@mid_modules.1.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_24_134 -> linear_10_135 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_10_135 -> unflatten_8_136 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.blocks.1_pass1" {
+			fillcolor=white label=<<B>@mid_modules.1.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.residual_conv_pass1" {
+			fillcolor=white label=<<B>@mid_modules.1.residual_conv</B><br align='left'/>(Identity)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.blocks.0_pass1" {
+			fillcolor=white label=<<B>@up_modules.0.0.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.cond_encoder_pass1" {
+			fillcolor=white label=<<B>@up_modules.0.0.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_27_151 -> linear_11_152 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_11_152 -> unflatten_9_153 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.blocks.1_pass1" {
+			fillcolor=white label=<<B>@up_modules.0.0.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.residual_conv_pass1" {
+			fillcolor=white label=<<B>@up_modules.0.0.residual_conv</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.blocks.0_pass1" {
+			fillcolor=white label=<<B>@up_modules.0.1.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.cond_encoder_pass1" {
+			fillcolor=white label=<<B>@up_modules.0.1.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_30_167 -> linear_12_168 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_12_168 -> unflatten_10_169 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.blocks.1_pass1" {
+			fillcolor=white label=<<B>@up_modules.0.1.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.residual_conv_pass1" {
+			fillcolor=white label=<<B>@up_modules.0.1.residual_conv</B><br align='left'/>(Identity)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.blocks.0_pass1" {
+			fillcolor=white label=<<B>@up_modules.1.0.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.cond_encoder_pass1" {
+			fillcolor=white label=<<B>@up_modules.1.0.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_33_185 -> linear_13_186 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_13_186 -> unflatten_11_187 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.blocks.1_pass1" {
+			fillcolor=white label=<<B>@up_modules.1.0.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.residual_conv_pass1" {
+			fillcolor=white label=<<B>@up_modules.1.0.residual_conv</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.blocks.0_pass1" {
+			fillcolor=white label=<<B>@up_modules.1.1.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.cond_encoder_pass1" {
+			fillcolor=white label=<<B>@up_modules.1.1.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			mish_36_201 -> linear_14_202 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_14_202 -> unflatten_12_203 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.blocks.1_pass1" {
+			fillcolor=white label=<<B>@up_modules.1.1.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.residual_conv_pass1" {
+			fillcolor=white label=<<B>@up_modules.1.1.residual_conv</B><br align='left'/>(Identity)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.blocks.0_pass1" {
+			subgraph "cluster_down_modules.0.0.blocks.0.block_pass1" {
+				fillcolor=white label=<<B>@down_modules.0.0.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_1_16 -> groupnorm_1_17 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_1_17 -> mish_2_18 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.0.0.cond_encoder.0_pass1" {
+				fillcolor=white label=<<B>@down_modules.0.0.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.0.0.cond_encoder.1_pass1" {
+				fillcolor=white label=<<B>@down_modules.0.0.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.0.0.cond_encoder.2_pass1" {
+				fillcolor=white label=<<B>@down_modules.0.0.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.blocks.1_pass1" {
+			subgraph "cluster_down_modules.0.0.blocks.1.block_pass1" {
+				fillcolor=white label=<<B>@down_modules.0.0.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_2_27 -> groupnorm_2_28 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_2_28 -> mish_4_29 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.blocks.0_pass1" {
+			subgraph "cluster_down_modules.0.1.blocks.0.block_pass1" {
+				fillcolor=white label=<<B>@down_modules.0.1.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_4_32 -> groupnorm_3_33 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_3_33 -> mish_5_34 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.0.1.cond_encoder.0_pass1" {
+				fillcolor=white label=<<B>@down_modules.0.1.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.0.1.cond_encoder.1_pass1" {
+				fillcolor=white label=<<B>@down_modules.0.1.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.0.1.cond_encoder.2_pass1" {
+				fillcolor=white label=<<B>@down_modules.0.1.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.blocks.1_pass1" {
+			subgraph "cluster_down_modules.0.1.blocks.1.block_pass1" {
+				fillcolor=white label=<<B>@down_modules.0.1.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_5_43 -> groupnorm_4_44 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_4_44 -> mish_7_45 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.blocks.0_pass1" {
+			subgraph "cluster_down_modules.1.0.blocks.0.block_pass1" {
+				fillcolor=white label=<<B>@down_modules.1.0.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_7_49 -> groupnorm_5_50 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_5_50 -> mish_8_51 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.1.0.cond_encoder.0_pass1" {
+				fillcolor=white label=<<B>@down_modules.1.0.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.1.0.cond_encoder.1_pass1" {
+				fillcolor=white label=<<B>@down_modules.1.0.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.1.0.cond_encoder.2_pass1" {
+				fillcolor=white label=<<B>@down_modules.1.0.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.blocks.1_pass1" {
+			subgraph "cluster_down_modules.1.0.blocks.1.block_pass1" {
+				fillcolor=white label=<<B>@down_modules.1.0.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_8_60 -> groupnorm_6_61 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_6_61 -> mish_10_62 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.blocks.0_pass1" {
+			subgraph "cluster_down_modules.1.1.blocks.0.block_pass1" {
+				fillcolor=white label=<<B>@down_modules.1.1.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_10_65 -> groupnorm_7_66 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_7_66 -> mish_11_67 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.1.1.cond_encoder.0_pass1" {
+				fillcolor=white label=<<B>@down_modules.1.1.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.1.1.cond_encoder.1_pass1" {
+				fillcolor=white label=<<B>@down_modules.1.1.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.1.1.cond_encoder.2_pass1" {
+				fillcolor=white label=<<B>@down_modules.1.1.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.blocks.1_pass1" {
+			subgraph "cluster_down_modules.1.1.blocks.1.block_pass1" {
+				fillcolor=white label=<<B>@down_modules.1.1.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_11_76 -> groupnorm_8_77 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_8_77 -> mish_13_78 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.blocks.0_pass1" {
+			subgraph "cluster_down_modules.2.0.blocks.0.block_pass1" {
+				fillcolor=white label=<<B>@down_modules.2.0.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_13_82 -> groupnorm_9_83 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_9_83 -> mish_14_84 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.2.0.cond_encoder.0_pass1" {
+				fillcolor=white label=<<B>@down_modules.2.0.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.2.0.cond_encoder.1_pass1" {
+				fillcolor=white label=<<B>@down_modules.2.0.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.2.0.cond_encoder.2_pass1" {
+				fillcolor=white label=<<B>@down_modules.2.0.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.blocks.1_pass1" {
+			subgraph "cluster_down_modules.2.0.blocks.1.block_pass1" {
+				fillcolor=white label=<<B>@down_modules.2.0.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_14_93 -> groupnorm_10_94 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_10_94 -> mish_16_95 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.blocks.0_pass1" {
+			subgraph "cluster_down_modules.2.1.blocks.0.block_pass1" {
+				fillcolor=white label=<<B>@down_modules.2.1.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_16_98 -> groupnorm_11_99 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_11_99 -> mish_17_100 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.2.1.cond_encoder.0_pass1" {
+				fillcolor=white label=<<B>@down_modules.2.1.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.2.1.cond_encoder.1_pass1" {
+				fillcolor=white label=<<B>@down_modules.2.1.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.cond_encoder_pass1" {
+			subgraph "cluster_down_modules.2.1.cond_encoder.2_pass1" {
+				fillcolor=white label=<<B>@down_modules.2.1.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.blocks.1_pass1" {
+			subgraph "cluster_down_modules.2.1.blocks.1.block_pass1" {
+				fillcolor=white label=<<B>@down_modules.2.1.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_17_109 -> groupnorm_12_110 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_12_110 -> mish_19_111 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.blocks.0_pass1" {
+			subgraph "cluster_mid_modules.0.blocks.0.block_pass1" {
+				fillcolor=white label=<<B>@mid_modules.0.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_18_115 -> groupnorm_13_116 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_13_116 -> mish_20_117 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.cond_encoder_pass1" {
+			subgraph "cluster_mid_modules.0.cond_encoder.0_pass1" {
+				fillcolor=white label=<<B>@mid_modules.0.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.cond_encoder_pass1" {
+			subgraph "cluster_mid_modules.0.cond_encoder.1_pass1" {
+				fillcolor=white label=<<B>@mid_modules.0.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.cond_encoder_pass1" {
+			subgraph "cluster_mid_modules.0.cond_encoder.2_pass1" {
+				fillcolor=white label=<<B>@mid_modules.0.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.blocks.1_pass1" {
+			subgraph "cluster_mid_modules.0.blocks.1.block_pass1" {
+				fillcolor=white label=<<B>@mid_modules.0.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_19_126 -> groupnorm_14_127 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_14_127 -> mish_22_128 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.0_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.0.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.cond_encoder_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.0.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				mish_27_151 -> linear_11_152 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				linear_11_152 -> unflatten_9_153 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.1_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.0.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.residual_conv_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.0.residual_conv</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.0_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.1.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.cond_encoder_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.1.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				mish_30_167 -> linear_12_168 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				linear_12_168 -> unflatten_10_169 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.1_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.1.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.residual_conv_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.1.residual_conv</B><br align='left'/>(Identity)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.2_pass1" {
+			subgraph "cluster_up_modules.0.2.conv_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.2.conv</B><br align='left'/>(ConvTranspose1d)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.0_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.0.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.cond_encoder_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.0.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				mish_33_185 -> linear_13_186 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				linear_13_186 -> unflatten_11_187 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.1_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.0.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.residual_conv_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.0.residual_conv</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.0_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.1.blocks.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.cond_encoder_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.1.cond_encoder</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				mish_36_201 -> linear_14_202 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				linear_14_202 -> unflatten_12_203 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.1_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.1.blocks.1</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.residual_conv_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.1.residual_conv</B><br align='left'/>(Identity)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.2_pass1" {
+			subgraph "cluster_up_modules.1.2.conv_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.2.conv</B><br align='left'/>(ConvTranspose1d)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph cluster_final_conv_pass1 {
+			subgraph "cluster_final_conv.0_pass1" {
+				fillcolor=white label=<<B>@final_conv.0</B><br align='left'/>(Conv1dBlock)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph cluster_final_conv_pass1 {
+			subgraph "cluster_final_conv.1_pass1" {
+				fillcolor=white label=<<B>@final_conv.1</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.blocks.0_pass1" {
+			subgraph "cluster_mid_modules.1.blocks.0.block_pass1" {
+				fillcolor=white label=<<B>@mid_modules.1.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_20_131 -> groupnorm_15_132 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_15_132 -> mish_23_133 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.cond_encoder_pass1" {
+			subgraph "cluster_mid_modules.1.cond_encoder.0_pass1" {
+				fillcolor=white label=<<B>@mid_modules.1.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.cond_encoder_pass1" {
+			subgraph "cluster_mid_modules.1.cond_encoder.1_pass1" {
+				fillcolor=white label=<<B>@mid_modules.1.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.cond_encoder_pass1" {
+			subgraph "cluster_mid_modules.1.cond_encoder.2_pass1" {
+				fillcolor=white label=<<B>@mid_modules.1.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.blocks.1_pass1" {
+			subgraph "cluster_mid_modules.1.blocks.1.block_pass1" {
+				fillcolor=white label=<<B>@mid_modules.1.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_21_142 -> groupnorm_16_143 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_16_143 -> mish_25_144 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.blocks.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.0.block_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.0.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_22_148 -> groupnorm_17_149 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_17_149 -> mish_26_150 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.cond_encoder_pass1" {
+			subgraph "cluster_up_modules.0.0.cond_encoder.0_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.0.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.cond_encoder_pass1" {
+			subgraph "cluster_up_modules.0.0.cond_encoder.1_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.0.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.cond_encoder_pass1" {
+			subgraph "cluster_up_modules.0.0.cond_encoder.2_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.0.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.blocks.1_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.1.block_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.0.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_23_159 -> groupnorm_18_160 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_18_160 -> mish_28_161 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.blocks.0_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.0.block_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.1.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_25_164 -> groupnorm_19_165 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_19_165 -> mish_29_166 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.cond_encoder_pass1" {
+			subgraph "cluster_up_modules.0.1.cond_encoder.0_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.1.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.cond_encoder_pass1" {
+			subgraph "cluster_up_modules.0.1.cond_encoder.1_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.1.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.cond_encoder_pass1" {
+			subgraph "cluster_up_modules.0.1.cond_encoder.2_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.1.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.blocks.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.1.block_pass1" {
+				fillcolor=white label=<<B>@up_modules.0.1.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_26_175 -> groupnorm_20_176 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_20_176 -> mish_31_177 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.blocks.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.0.block_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.0.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_27_182 -> groupnorm_21_183 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_21_183 -> mish_32_184 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.cond_encoder_pass1" {
+			subgraph "cluster_up_modules.1.0.cond_encoder.0_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.0.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.cond_encoder_pass1" {
+			subgraph "cluster_up_modules.1.0.cond_encoder.1_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.0.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.cond_encoder_pass1" {
+			subgraph "cluster_up_modules.1.0.cond_encoder.2_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.0.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.blocks.1_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.1.block_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.0.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_28_193 -> groupnorm_22_194 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_22_194 -> mish_34_195 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.blocks.0_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.0.block_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.1.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_30_198 -> groupnorm_23_199 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_23_199 -> mish_35_200 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.cond_encoder_pass1" {
+			subgraph "cluster_up_modules.1.1.cond_encoder.0_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.1.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.cond_encoder_pass1" {
+			subgraph "cluster_up_modules.1.1.cond_encoder.1_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.1.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.cond_encoder_pass1" {
+			subgraph "cluster_up_modules.1.1.cond_encoder.2_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.1.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.blocks.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.1.block_pass1" {
+				fillcolor=white label=<<B>@up_modules.1.1.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				conv1d_31_209 -> groupnorm_24_210 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				groupnorm_24_210 -> mish_37_211 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.blocks.0_pass1" {
+			subgraph "cluster_down_modules.0.0.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.0.0.blocks.0.block.0_pass1" {
+					fillcolor=white label=<<B>@down_modules.0.0.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.blocks.0_pass1" {
+			subgraph "cluster_down_modules.0.0.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.0.0.blocks.0.block.1_pass1" {
+					fillcolor=white label=<<B>@down_modules.0.0.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.blocks.0_pass1" {
+			subgraph "cluster_down_modules.0.0.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.0.0.blocks.0.block.2_pass1" {
+					fillcolor=white label=<<B>@down_modules.0.0.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.blocks.1_pass1" {
+			subgraph "cluster_down_modules.0.0.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.0.0.blocks.1.block.0_pass1" {
+					fillcolor=white label=<<B>@down_modules.0.0.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.blocks.1_pass1" {
+			subgraph "cluster_down_modules.0.0.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.0.0.blocks.1.block.1_pass1" {
+					fillcolor=white label=<<B>@down_modules.0.0.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.0_pass1" {
+		subgraph "cluster_down_modules.0.0.blocks.1_pass1" {
+			subgraph "cluster_down_modules.0.0.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.0.0.blocks.1.block.2_pass1" {
+					fillcolor=white label=<<B>@down_modules.0.0.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.blocks.0_pass1" {
+			subgraph "cluster_down_modules.0.1.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.0.1.blocks.0.block.0_pass1" {
+					fillcolor=white label=<<B>@down_modules.0.1.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.blocks.0_pass1" {
+			subgraph "cluster_down_modules.0.1.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.0.1.blocks.0.block.1_pass1" {
+					fillcolor=white label=<<B>@down_modules.0.1.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.blocks.0_pass1" {
+			subgraph "cluster_down_modules.0.1.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.0.1.blocks.0.block.2_pass1" {
+					fillcolor=white label=<<B>@down_modules.0.1.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.blocks.1_pass1" {
+			subgraph "cluster_down_modules.0.1.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.0.1.blocks.1.block.0_pass1" {
+					fillcolor=white label=<<B>@down_modules.0.1.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.blocks.1_pass1" {
+			subgraph "cluster_down_modules.0.1.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.0.1.blocks.1.block.1_pass1" {
+					fillcolor=white label=<<B>@down_modules.0.1.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.0.1_pass1" {
+		subgraph "cluster_down_modules.0.1.blocks.1_pass1" {
+			subgraph "cluster_down_modules.0.1.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.0.1.blocks.1.block.2_pass1" {
+					fillcolor=white label=<<B>@down_modules.0.1.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.blocks.0_pass1" {
+			subgraph "cluster_down_modules.1.0.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.1.0.blocks.0.block.0_pass1" {
+					fillcolor=white label=<<B>@down_modules.1.0.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.blocks.0_pass1" {
+			subgraph "cluster_down_modules.1.0.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.1.0.blocks.0.block.1_pass1" {
+					fillcolor=white label=<<B>@down_modules.1.0.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.blocks.0_pass1" {
+			subgraph "cluster_down_modules.1.0.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.1.0.blocks.0.block.2_pass1" {
+					fillcolor=white label=<<B>@down_modules.1.0.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.blocks.1_pass1" {
+			subgraph "cluster_down_modules.1.0.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.1.0.blocks.1.block.0_pass1" {
+					fillcolor=white label=<<B>@down_modules.1.0.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.blocks.1_pass1" {
+			subgraph "cluster_down_modules.1.0.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.1.0.blocks.1.block.1_pass1" {
+					fillcolor=white label=<<B>@down_modules.1.0.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.0_pass1" {
+		subgraph "cluster_down_modules.1.0.blocks.1_pass1" {
+			subgraph "cluster_down_modules.1.0.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.1.0.blocks.1.block.2_pass1" {
+					fillcolor=white label=<<B>@down_modules.1.0.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.blocks.0_pass1" {
+			subgraph "cluster_down_modules.1.1.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.1.1.blocks.0.block.0_pass1" {
+					fillcolor=white label=<<B>@down_modules.1.1.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.blocks.0_pass1" {
+			subgraph "cluster_down_modules.1.1.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.1.1.blocks.0.block.1_pass1" {
+					fillcolor=white label=<<B>@down_modules.1.1.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.blocks.0_pass1" {
+			subgraph "cluster_down_modules.1.1.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.1.1.blocks.0.block.2_pass1" {
+					fillcolor=white label=<<B>@down_modules.1.1.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.blocks.1_pass1" {
+			subgraph "cluster_down_modules.1.1.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.1.1.blocks.1.block.0_pass1" {
+					fillcolor=white label=<<B>@down_modules.1.1.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.blocks.1_pass1" {
+			subgraph "cluster_down_modules.1.1.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.1.1.blocks.1.block.1_pass1" {
+					fillcolor=white label=<<B>@down_modules.1.1.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.1.1_pass1" {
+		subgraph "cluster_down_modules.1.1.blocks.1_pass1" {
+			subgraph "cluster_down_modules.1.1.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.1.1.blocks.1.block.2_pass1" {
+					fillcolor=white label=<<B>@down_modules.1.1.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.blocks.0_pass1" {
+			subgraph "cluster_down_modules.2.0.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.2.0.blocks.0.block.0_pass1" {
+					fillcolor=white label=<<B>@down_modules.2.0.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.blocks.0_pass1" {
+			subgraph "cluster_down_modules.2.0.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.2.0.blocks.0.block.1_pass1" {
+					fillcolor=white label=<<B>@down_modules.2.0.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.blocks.0_pass1" {
+			subgraph "cluster_down_modules.2.0.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.2.0.blocks.0.block.2_pass1" {
+					fillcolor=white label=<<B>@down_modules.2.0.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.blocks.1_pass1" {
+			subgraph "cluster_down_modules.2.0.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.2.0.blocks.1.block.0_pass1" {
+					fillcolor=white label=<<B>@down_modules.2.0.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.blocks.1_pass1" {
+			subgraph "cluster_down_modules.2.0.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.2.0.blocks.1.block.1_pass1" {
+					fillcolor=white label=<<B>@down_modules.2.0.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.0_pass1" {
+		subgraph "cluster_down_modules.2.0.blocks.1_pass1" {
+			subgraph "cluster_down_modules.2.0.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.2.0.blocks.1.block.2_pass1" {
+					fillcolor=white label=<<B>@down_modules.2.0.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.blocks.0_pass1" {
+			subgraph "cluster_down_modules.2.1.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.2.1.blocks.0.block.0_pass1" {
+					fillcolor=white label=<<B>@down_modules.2.1.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.blocks.0_pass1" {
+			subgraph "cluster_down_modules.2.1.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.2.1.blocks.0.block.1_pass1" {
+					fillcolor=white label=<<B>@down_modules.2.1.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.blocks.0_pass1" {
+			subgraph "cluster_down_modules.2.1.blocks.0.block_pass1" {
+				subgraph "cluster_down_modules.2.1.blocks.0.block.2_pass1" {
+					fillcolor=white label=<<B>@down_modules.2.1.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.blocks.1_pass1" {
+			subgraph "cluster_down_modules.2.1.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.2.1.blocks.1.block.0_pass1" {
+					fillcolor=white label=<<B>@down_modules.2.1.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.blocks.1_pass1" {
+			subgraph "cluster_down_modules.2.1.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.2.1.blocks.1.block.1_pass1" {
+					fillcolor=white label=<<B>@down_modules.2.1.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_down_modules.2.1_pass1" {
+		subgraph "cluster_down_modules.2.1.blocks.1_pass1" {
+			subgraph "cluster_down_modules.2.1.blocks.1.block_pass1" {
+				subgraph "cluster_down_modules.2.1.blocks.1.block.2_pass1" {
+					fillcolor=white label=<<B>@down_modules.2.1.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.blocks.0_pass1" {
+			subgraph "cluster_mid_modules.0.blocks.0.block_pass1" {
+				subgraph "cluster_mid_modules.0.blocks.0.block.0_pass1" {
+					fillcolor=white label=<<B>@mid_modules.0.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.blocks.0_pass1" {
+			subgraph "cluster_mid_modules.0.blocks.0.block_pass1" {
+				subgraph "cluster_mid_modules.0.blocks.0.block.1_pass1" {
+					fillcolor=white label=<<B>@mid_modules.0.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.blocks.0_pass1" {
+			subgraph "cluster_mid_modules.0.blocks.0.block_pass1" {
+				subgraph "cluster_mid_modules.0.blocks.0.block.2_pass1" {
+					fillcolor=white label=<<B>@mid_modules.0.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.blocks.1_pass1" {
+			subgraph "cluster_mid_modules.0.blocks.1.block_pass1" {
+				subgraph "cluster_mid_modules.0.blocks.1.block.0_pass1" {
+					fillcolor=white label=<<B>@mid_modules.0.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.blocks.1_pass1" {
+			subgraph "cluster_mid_modules.0.blocks.1.block_pass1" {
+				subgraph "cluster_mid_modules.0.blocks.1.block.1_pass1" {
+					fillcolor=white label=<<B>@mid_modules.0.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_mid_modules.0.blocks.1_pass1" {
+			subgraph "cluster_mid_modules.0.blocks.1.block_pass1" {
+				subgraph "cluster_mid_modules.0.blocks.1.block.2_pass1" {
+					fillcolor=white label=<<B>@mid_modules.0.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.0_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.0.block_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.0.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					conv1d_22_148 -> groupnorm_17_149 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					groupnorm_17_149 -> mish_26_150 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.cond_encoder_pass1" {
+				subgraph "cluster_up_modules.0.0.cond_encoder.0_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.0.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.cond_encoder_pass1" {
+				subgraph "cluster_up_modules.0.0.cond_encoder.1_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.0.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.cond_encoder_pass1" {
+				subgraph "cluster_up_modules.0.0.cond_encoder.2_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.0.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.1_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.1.block_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.0.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					conv1d_23_159 -> groupnorm_18_160 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					groupnorm_18_160 -> mish_28_161 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.0_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.0.block_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.1.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					conv1d_25_164 -> groupnorm_19_165 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					groupnorm_19_165 -> mish_29_166 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.cond_encoder_pass1" {
+				subgraph "cluster_up_modules.0.1.cond_encoder.0_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.1.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.cond_encoder_pass1" {
+				subgraph "cluster_up_modules.0.1.cond_encoder.1_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.1.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.cond_encoder_pass1" {
+				subgraph "cluster_up_modules.0.1.cond_encoder.2_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.1.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.1_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.1.block_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.1.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					conv1d_26_175 -> groupnorm_20_176 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					groupnorm_20_176 -> mish_31_177 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.0_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.0.block_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.0.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					conv1d_27_182 -> groupnorm_21_183 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					groupnorm_21_183 -> mish_32_184 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.cond_encoder_pass1" {
+				subgraph "cluster_up_modules.1.0.cond_encoder.0_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.0.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.cond_encoder_pass1" {
+				subgraph "cluster_up_modules.1.0.cond_encoder.1_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.0.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.cond_encoder_pass1" {
+				subgraph "cluster_up_modules.1.0.cond_encoder.2_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.0.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.1_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.1.block_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.0.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					conv1d_28_193 -> groupnorm_22_194 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					groupnorm_22_194 -> mish_34_195 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.0_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.0.block_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.1.blocks.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					conv1d_30_198 -> groupnorm_23_199 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					groupnorm_23_199 -> mish_35_200 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.cond_encoder_pass1" {
+				subgraph "cluster_up_modules.1.1.cond_encoder.0_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.1.cond_encoder.0</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.cond_encoder_pass1" {
+				subgraph "cluster_up_modules.1.1.cond_encoder.1_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.1.cond_encoder.1</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.cond_encoder_pass1" {
+				subgraph "cluster_up_modules.1.1.cond_encoder.2_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.1.cond_encoder.2</B><br align='left'/>(Unflatten)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.1_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.1.block_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.1.blocks.1.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					conv1d_31_209 -> groupnorm_24_210 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					groupnorm_24_210 -> mish_37_211 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph cluster_final_conv_pass1 {
+			subgraph "cluster_final_conv.0_pass1" {
+				subgraph "cluster_final_conv.0.block_pass1" {
+					fillcolor=white label=<<B>@final_conv.0.block</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					conv1d_32_215 -> groupnorm_25_216 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					groupnorm_25_216 -> mish_38_217 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.blocks.0_pass1" {
+			subgraph "cluster_mid_modules.1.blocks.0.block_pass1" {
+				subgraph "cluster_mid_modules.1.blocks.0.block.0_pass1" {
+					fillcolor=white label=<<B>@mid_modules.1.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.blocks.0_pass1" {
+			subgraph "cluster_mid_modules.1.blocks.0.block_pass1" {
+				subgraph "cluster_mid_modules.1.blocks.0.block.1_pass1" {
+					fillcolor=white label=<<B>@mid_modules.1.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.blocks.0_pass1" {
+			subgraph "cluster_mid_modules.1.blocks.0.block_pass1" {
+				subgraph "cluster_mid_modules.1.blocks.0.block.2_pass1" {
+					fillcolor=white label=<<B>@mid_modules.1.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.blocks.1_pass1" {
+			subgraph "cluster_mid_modules.1.blocks.1.block_pass1" {
+				subgraph "cluster_mid_modules.1.blocks.1.block.0_pass1" {
+					fillcolor=white label=<<B>@mid_modules.1.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.blocks.1_pass1" {
+			subgraph "cluster_mid_modules.1.blocks.1.block_pass1" {
+				subgraph "cluster_mid_modules.1.blocks.1.block.1_pass1" {
+					fillcolor=white label=<<B>@mid_modules.1.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.1_pass1" {
+		subgraph "cluster_mid_modules.1.blocks.1_pass1" {
+			subgraph "cluster_mid_modules.1.blocks.1.block_pass1" {
+				subgraph "cluster_mid_modules.1.blocks.1.block.2_pass1" {
+					fillcolor=white label=<<B>@mid_modules.1.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.blocks.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.0.block_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.0.block.0_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.0.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.blocks.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.0.block_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.0.block.1_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.0.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.blocks.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.0.block_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.0.block.2_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.0.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.blocks.1_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.1.block_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.1.block.0_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.0.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.blocks.1_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.1.block_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.1.block.1_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.0.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.0_pass1" {
+		subgraph "cluster_up_modules.0.0.blocks.1_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.1.block_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.1.block.2_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.0.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.blocks.0_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.0.block_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.0.block.0_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.1.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.blocks.0_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.0.block_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.0.block.1_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.1.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.blocks.0_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.0.block_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.0.block.2_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.1.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.blocks.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.1.block_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.1.block.0_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.1.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.blocks.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.1.block_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.1.block.1_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.1.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.0.1_pass1" {
+		subgraph "cluster_up_modules.0.1.blocks.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.1.block_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.1.block.2_pass1" {
+					fillcolor=white label=<<B>@up_modules.0.1.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.blocks.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.0.block_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.0.block.0_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.0.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.blocks.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.0.block_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.0.block.1_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.0.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.blocks.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.0.block_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.0.block.2_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.0.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.blocks.1_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.1.block_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.1.block.0_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.0.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.blocks.1_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.1.block_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.1.block.1_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.0.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.0_pass1" {
+		subgraph "cluster_up_modules.1.0.blocks.1_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.1.block_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.1.block.2_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.0.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.blocks.0_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.0.block_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.0.block.0_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.1.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.blocks.0_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.0.block_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.0.block.1_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.1.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.blocks.0_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.0.block_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.0.block.2_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.1.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.blocks.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.1.block_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.1.block.0_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.1.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.blocks.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.1.block_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.1.block.1_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.1.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_up_modules.1.1_pass1" {
+		subgraph "cluster_up_modules.1.1.blocks.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.1.block_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.1.block.2_pass1" {
+					fillcolor=white label=<<B>@up_modules.1.1.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.0_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.0.block_pass1" {
+					subgraph "cluster_up_modules.0.0.blocks.0.block.0_pass1" {
+						fillcolor=white label=<<B>@up_modules.0.0.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.0_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.0.block_pass1" {
+					subgraph "cluster_up_modules.0.0.blocks.0.block.1_pass1" {
+						fillcolor=white label=<<B>@up_modules.0.0.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.0_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.0.block_pass1" {
+					subgraph "cluster_up_modules.0.0.blocks.0.block.2_pass1" {
+						fillcolor=white label=<<B>@up_modules.0.0.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.1_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.1.block_pass1" {
+					subgraph "cluster_up_modules.0.0.blocks.1.block.0_pass1" {
+						fillcolor=white label=<<B>@up_modules.0.0.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.1_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.1.block_pass1" {
+					subgraph "cluster_up_modules.0.0.blocks.1.block.1_pass1" {
+						fillcolor=white label=<<B>@up_modules.0.0.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.0_pass1" {
+			subgraph "cluster_up_modules.0.0.blocks.1_pass1" {
+				subgraph "cluster_up_modules.0.0.blocks.1.block_pass1" {
+					subgraph "cluster_up_modules.0.0.blocks.1.block.2_pass1" {
+						fillcolor=white label=<<B>@up_modules.0.0.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.0_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.0.block_pass1" {
+					subgraph "cluster_up_modules.0.1.blocks.0.block.0_pass1" {
+						fillcolor=white label=<<B>@up_modules.0.1.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.0_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.0.block_pass1" {
+					subgraph "cluster_up_modules.0.1.blocks.0.block.1_pass1" {
+						fillcolor=white label=<<B>@up_modules.0.1.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.0_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.0.block_pass1" {
+					subgraph "cluster_up_modules.0.1.blocks.0.block.2_pass1" {
+						fillcolor=white label=<<B>@up_modules.0.1.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.1_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.1.block_pass1" {
+					subgraph "cluster_up_modules.0.1.blocks.1.block.0_pass1" {
+						fillcolor=white label=<<B>@up_modules.0.1.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.1_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.1.block_pass1" {
+					subgraph "cluster_up_modules.0.1.blocks.1.block.1_pass1" {
+						fillcolor=white label=<<B>@up_modules.0.1.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.0.1_pass1" {
+			subgraph "cluster_up_modules.0.1.blocks.1_pass1" {
+				subgraph "cluster_up_modules.0.1.blocks.1.block_pass1" {
+					subgraph "cluster_up_modules.0.1.blocks.1.block.2_pass1" {
+						fillcolor=white label=<<B>@up_modules.0.1.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.0_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.0.block_pass1" {
+					subgraph "cluster_up_modules.1.0.blocks.0.block.0_pass1" {
+						fillcolor=white label=<<B>@up_modules.1.0.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.0_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.0.block_pass1" {
+					subgraph "cluster_up_modules.1.0.blocks.0.block.1_pass1" {
+						fillcolor=white label=<<B>@up_modules.1.0.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.0_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.0.block_pass1" {
+					subgraph "cluster_up_modules.1.0.blocks.0.block.2_pass1" {
+						fillcolor=white label=<<B>@up_modules.1.0.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.1_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.1.block_pass1" {
+					subgraph "cluster_up_modules.1.0.blocks.1.block.0_pass1" {
+						fillcolor=white label=<<B>@up_modules.1.0.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.1_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.1.block_pass1" {
+					subgraph "cluster_up_modules.1.0.blocks.1.block.1_pass1" {
+						fillcolor=white label=<<B>@up_modules.1.0.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.0_pass1" {
+			subgraph "cluster_up_modules.1.0.blocks.1_pass1" {
+				subgraph "cluster_up_modules.1.0.blocks.1.block_pass1" {
+					subgraph "cluster_up_modules.1.0.blocks.1.block.2_pass1" {
+						fillcolor=white label=<<B>@up_modules.1.0.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.0_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.0.block_pass1" {
+					subgraph "cluster_up_modules.1.1.blocks.0.block.0_pass1" {
+						fillcolor=white label=<<B>@up_modules.1.1.blocks.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.0_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.0.block_pass1" {
+					subgraph "cluster_up_modules.1.1.blocks.0.block.1_pass1" {
+						fillcolor=white label=<<B>@up_modules.1.1.blocks.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.0_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.0.block_pass1" {
+					subgraph "cluster_up_modules.1.1.blocks.0.block.2_pass1" {
+						fillcolor=white label=<<B>@up_modules.1.1.blocks.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.1_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.1.block_pass1" {
+					subgraph "cluster_up_modules.1.1.blocks.1.block.0_pass1" {
+						fillcolor=white label=<<B>@up_modules.1.1.blocks.1.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.1_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.1.block_pass1" {
+					subgraph "cluster_up_modules.1.1.blocks.1.block.1_pass1" {
+						fillcolor=white label=<<B>@up_modules.1.1.blocks.1.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph "cluster_up_modules.1.1_pass1" {
+			subgraph "cluster_up_modules.1.1.blocks.1_pass1" {
+				subgraph "cluster_up_modules.1.1.blocks.1.block_pass1" {
+					subgraph "cluster_up_modules.1.1.blocks.1.block.2_pass1" {
+						fillcolor=white label=<<B>@up_modules.1.1.blocks.1.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph cluster_final_conv_pass1 {
+			subgraph "cluster_final_conv.0_pass1" {
+				subgraph "cluster_final_conv.0.block_pass1" {
+					subgraph "cluster_final_conv.0.block.0_pass1" {
+						fillcolor=white label=<<B>@final_conv.0.block.0</B><br align='left'/>(Conv1d)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph cluster_final_conv_pass1 {
+			subgraph "cluster_final_conv.0_pass1" {
+				subgraph "cluster_final_conv.0.block_pass1" {
+					subgraph "cluster_final_conv.0.block.1_pass1" {
+						fillcolor=white label=<<B>@final_conv.0.block.1</B><br align='left'/>(GroupNorm)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph "cluster_mid_modules.0_pass1" {
+		subgraph cluster_final_conv_pass1 {
+			subgraph "cluster_final_conv.0_pass1" {
+				subgraph "cluster_final_conv.0.block_pass1" {
+					subgraph "cluster_final_conv.0.block.2_pass1" {
+						fillcolor=white label=<<B>@final_conv.0.block.2</B><br align='left'/>(Mish)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+}

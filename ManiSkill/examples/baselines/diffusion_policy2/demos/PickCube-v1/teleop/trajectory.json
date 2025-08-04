@@ -1,0 +1,32 @@
+{
+  "env_info": {
+    "env_id": "PickCube-v1",
+    "env_kwargs": {
+      "obs_mode": "none",
+      "control_mode": "pd_joint_pos",
+      "render_mode": "rgb_array",
+      "reward_mode": "none",
+      "enable_shadow": true,
+      "viewer_camera_configs": {
+        "shader_pack": "rt-fast"
+      }
+    },
+    "max_episode_steps": 50
+  },
+  "commit_info": null,
+  "episodes": [
+    {
+      "episode_id": 0,
+      "episode_seed": 0,
+      "control_mode": "pd_joint_pos",
+      "elapsed_steps": 12,
+      "reset_kwargs": {
+        "options": {},
+        "seed": 0
+      },
+      "success": false
+    }
+  ],
+  "source_type": "teleoperation",
+  "source_desc": "teleoperation via the click+drag system"
+}
